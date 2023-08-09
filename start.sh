@@ -1,0 +1,2 @@
+#!/bin/sh
+qemu-system-riscv64 -nographic -machine virt -cpu rv64,v=true,vlen=256,elen=64,vext_spec=v1.0 -smp 4 -m 8G -kernel Image -append "root=/dev/vda1 ro console=ttyS0" -drive file=gentoo.img,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -device virtio-net-device,netdev=usernet -netdev user,id=usernet,hostfwd=tcp::10000-:22 -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-device,rng=rng0
