@@ -3,6 +3,8 @@
 This archive includes a 6.5-rc3 kernel and Gentoo Linux userspace configured for
 RISC-V to enable development and testing of RVV optimizations to OSS projects.
 
+![](neofetch.png)
+
 ## Getting Started
 
 This setup has been tested with qemu-8.0.3. To boot the VM simply run:
