@@ -7,7 +7,9 @@ RISC-V to enable development and testing of RVV optimizations to OSS projects.
 
 This setup has been tested with qemu-8.0.3. To boot the VM simply run:
 
+```
 $ ./start.sh
+```
 
 There are two accounts available on the system, root and negge. Both have the
 same password: rise
@@ -15,7 +17,9 @@ same password: rise
 At boot, the VM starts sshd on port 22. The start.sh script includes a setting
 to map host port 10000 to VM port 22. You can ssh in with the user account:
 
+```
 $ ssh -p 10000 negge@localhost
+```
 
 ## Installed Software
 
@@ -40,8 +44,10 @@ are built for RISC-V and available to use:
 
 There are two programs in the negge user directory:
 
+```
 $ ls test
 hwcap  hwcap.c  testrvv  testrvv.as  testrvv.o
+```
 
 1. The `hwcap` program tests that the 'V' bit is set by getauxval(AT_HWCAP)
 2. The `testrvv` program executes the vsetvli instruction and returns
@@ -57,10 +63,12 @@ has the advantage of using the host kernel and MMU and is significantly faster.
 As root, configure and start the qemu-binfmt service. You can confirm this is
 done correctly with:
 
+```
 $ cat /proc/sys/fs/binfmt_misc/qemu-riscv64
 enabled
 interpreter /usr/bin/qemu-riscv64
 ...
+```
 
 The VM already contains a staticly compiled x86_64 QEMU user binary with the
 patch from [1] backported to qemu-8.0.3 at:
@@ -69,6 +77,7 @@ patch from [1] backported to qemu-8.0.3 at:
 
 To create the chroot, run the following commands as root:
 
+```
 mount -o loop,offset=1048576 gentoo.img /mnt/gentoo
 cp /etc/resolv.conf /mnt/gentoo/etc
 mount --bind /proc /mnt/gentoo/proc
@@ -76,11 +85,14 @@ mount --bind /sys /mnt/gentoo/sys
 mount --bind /dev /mnt/gentoo/dev
 mount --bind /dev/pts /mnt/gentoo/dev/pts
 mount --bind /dev/shm /mnt/gentoo/dev/shm
+```
 
 You can enter the chroot with:
 
+```
 chroot /mnt/gentoo /bin/bash
 env-update && source /etc/profile
+```
 
 Using the chroot is recommend for building and installing new packages into the
 VM with the emerge command.
