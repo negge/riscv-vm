@@ -1,13 +1,13 @@
 # RISC-V Developer Environment
 
-This archive includes a 6.5-rc3 kernel and Gentoo Linux userspace configured for
+This archive includes a 6.6-rc7 kernel and Gentoo Linux userspace configured for
 RISC-V to enable development and testing of RVV optimizations to OSS projects.
 
 ![](neofetch.png)
 
 ## Getting Started
 
-This setup has been tested with qemu-8.0.3. To boot the VM simply run:
+This setup has been tested with qemu-8.1.2. To boot the VM simply run:
 
 ```
 $ ./start.sh
@@ -25,22 +25,8 @@ $ ssh -p 10000 negge@localhost
 
 ## Installed Software
 
-This machine has the latest developer tools installed. The following packages
-are built for RISC-V and available to use:
-
-| Package                | Release Date |
-| ---------------------- | ------------ |
-| bison-3.8.2            | 2021-9-21    |
-| clang-16.0.6           | 2023-6-14    |
-| cmake-3.27.1           | 2023-7-25    |
-| flex-2.6.4             | 2022-9-24    |
-| gcc-13.2.0             | 2023-7-27    |
-| git-2.41.0             | 2023-6-1     |
-| make-4.4.1             | 2023-2-26    |
-| ninja-1.11.1           | 2022-8-30    |
-| openssl-3.1.1          | 2023-5-30    |
-| python-3.12.0_beta4_p1 | 2023-7-11    |
-| rust-1.71.0            | 2023-7-12    |
+This machine has the latest developer tools installed. The full list of
+installed programs built for RISC-V can be found in [packages.txt](packages.txt).
 
 ## Testing RISC-V Extensions
 
@@ -54,7 +40,7 @@ hwcap  hwcap.c  testrvv  testrvv.as  testrvv.o
 1. The `hwcap` program tests that the 'V' bit is set by getauxval(AT_HWCAP)
 2. The `testrvv` program executes the vsetvli instruction and returns
 
-These can be used to confirm that the 6.5-rc3 kernel is properly built with
+These can be used to confirm that the 6.6-rc7 kernel is properly built with
 CONFIG_RISCV_ISA_V=y and CONFIG_RISCV_ISA_V_DEFAULT_ENABLE=y.
 
 ## Advanced Use
@@ -74,8 +60,7 @@ interpreter /usr/bin/qemu-riscv64
 ...
 ```
 
-The VM already contains a staticly compiled x86_64 QEMU user binary with the
-patch from [1] backported to qemu-8.0.3 at:
+The VM already contains a staticly compiled x86_64 QEMU 8.1.2 user binary at:
 
 ```
 /usr/bin/qemu-riscv64
@@ -111,8 +96,6 @@ extensions
 
 For this reason it is recommended to develop and test RVV optimizations in
 the emulated VM.
-
-[1] https://gitlab.com/qemu-project/qemu/-/issues/1793
 
 ### Setting up binfmt_misc
 The way in which `binfmt_misc` is set up depends on the system that is used, but
